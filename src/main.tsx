@@ -1,6 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './app/App' // Adjust this path to find your App.tsx
+import App from './app/App'
+
+// --- ADD THESE LINES TO LOAD YOUR STYLES ---
+import './styles/tailwind.css'
+import './styles/theme.css'
+import './styles/index.css' 
+// -------------------------------------------
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
