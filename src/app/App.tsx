@@ -1,5 +1,18 @@
 import React from "react";
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'tableau-viz': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+        id?: string;
+        src?: string;
+        toolbar?: string;
+        'hide-tabs'?: boolean;
+      };
+    }
+  }
+}
+
 /**
  * A simple, linear blogpost-style layout for data analysis results.
  * Focused on readability, accessibility, and simplicity.
@@ -72,27 +85,14 @@ export default function App() {
           </p>
 
           {/* Tableau Iframe Placeholder */}
-          <div
-            className="bg-slate-50 border-2 border-slate-200 rounded-xl overflow-hidden aspect-video flex flex-col items-center justify-center p-8 text-center"
-            aria-label="Interactive Chart: Global Compliance Trends"
-          >
-            <div className="bg-white p-4 rounded shadow-sm mb-4">
-              <svg
-                className="w-12 h-12 text-slate-300"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-              </svg>
-            </div>
-            <p className="font-bold text-slate-400 uppercase tracking-widest text-sm mb-2">
-              Tableau Embed Placeholder
-            </p>
-            <p className="text-slate-500 max-w-xs">
-              The interactive graph will appear here via iframe.
-            </p>
-            {/* Example iframe implementation (commented out or just structure) */}
-            {/* <iframe src="YOUR_TABLEAU_URL" className="w-full h-full border-none" title="Global Compliance Chart"></iframe> */}
+          <div className="bg-slate-50 border-2 border-slate-200 rounded-xl overflow-hidden aspect-video">
+          {React.createElement('tableau-viz', {
+            id: 'tableauViz',
+            src: 'https://public.tableau.com/views/Book1_17705139913690/Sheet1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link',
+            toolbar: 'bottom',
+            'hide-tabs': true,
+            style: { width: '100%', height: '100%' }
+          })}
           </div>
         </section>
 
