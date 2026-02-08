@@ -54,7 +54,7 @@ data_clean <- data |>
 
 ```{r}
 data_clean |>
-  filter(web_URL == "https://arstechnica.com/health/")
+  filter(violation_name == "region")
 ```
 
 
@@ -88,13 +88,6 @@ page_summary <- data_clean_deduped |>
 
 ```
 
-```{r}
-page_summary |>
-  filter(domain == "arstechnica.com") |>
-  summarise(sum(n_violations))
-```
-
-
 
 # DOMAIN-LEVEL SUMMARY
 
@@ -103,9 +96,9 @@ domain_summary <- page_summary |>
   group_by(domain) |>
   summarise(
     n_pages = n(),
-    total_violations = sum(n_violations),
-    avg_violations_per_page = mean(n_violations),
-    avg_severity = mean(avg_severity),
+    total_violations = sum(n_violations, na.rm = TRUE),
+    avg_violations_per_page = mean(n_violations, na.rm = TRUE),
+    avg_severity = mean(avg_severity, na.rm = TRUE),
     .groups = "drop"
   )
 
@@ -157,6 +150,21 @@ violation_category_summary <- data_clean |>
   count(violation_category, sort = TRUE) |>
   rename(violations = n)
 
+
+top_violations <- violation_summary |>
+  slice_max(violations, n = 10) |>
+  pull(violation_name)
+
+violation_summary_grouped <- violation_summary |>
+  mutate(
+    violation_group = if_else(
+      violation_name %in% top_violations,
+      violation_name,
+      "Other"
+    )
+  ) |>
+  group_by(violation_group) |>
+  summarise(violations = sum(violations), .groups = "drop")
 ```
 
 ```{r}
@@ -164,6 +172,7 @@ violation_summary
 violation_type_by_domain_category
 violation_category_by_domain_category
 violation_category_summary
+violation_summary_grouped
 ```
 
 
@@ -173,15 +182,12 @@ violation_category_summary
 write.csv(domain_summary, "processed_data/domain_summary.csv", row.names = FALSE)
 write.csv(domain_category_summary, "processed_data/domain_category_summary.csv", row.names = FALSE)
 write.csv(violation_summary, "processed_data/violation_summary.csv", row.names = FALSE)
+write.csv(violation_summary_grouped, "processed_data/violation_summary_grouped.csv", row.names = FALSE)
 write.csv(violation_category_summary, "processed_data/violation_category_summary.csv", row.names = FALSE)
 write.csv(violation_type_by_domain_category, "processed_data/violation_type_by_domain.csv", row.names = FALSE)
 write.csv(violation_category_by_domain_category, "processed_data/violation_category_by_domain.csv", row.names = FALSE)
 ```
 
-```{r}
-domain_summary |>
-  head(10)
-```
 
 
 
