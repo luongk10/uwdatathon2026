@@ -1,6 +1,6 @@
 ---
 title: "UW Datathon 2026 Preprocessing"
-author: "Kirby Vo"
+author: "Kirby Vo, Kelbin Luong"
 date: "2026-02-07"
 output: pdf_document
 ---
@@ -26,8 +26,47 @@ data |>
 data |>
   sample_n(10)
 ```
+# SEARCH FOR DATA INCONSISTENCIES
+
+We found that looking at distinct categories, we saw some inconsistent domain category entries that we would need to remap
+
+```{r}
+data |>
+  distinct(domain_category)
+```
+We also found cases where if a url had multiple domain categories assigned to it, any violation entries for it would be duplicated accordingly.
+
+```{r}
+data |>
+  filter(web_URL == "https://arstechnica.com/health/") |>
+  select(domain_category, web_URL, violation_name, violation_score) |>
+  head(2)
+```
+
+
+We had also noticed while processing the data that there were instances of urls with or without /, which would count them as seperate webpages despite being the same, which needed to be addressed.
+
+```{r}
+data |> 
+  filter(web_URL == "https://www.nbcnews.com" | web_URL == "https://www.nbcnews.com/") |>
+  select(web_URL) |>
+  slice(1, 22)
+
+```
+Regarding domains, we found that there were a lot of domains such as arstechnica.com which had multiple webpages under it, which meant we would need to group them properly by domain in order to answer domain specific questions.
+
+```{r}
+data |> 
+  filter(str_detect(web_URL, "arstechnica\\.com")) |>
+  distinct(web_URL) |>
+  head(5)
+
+```
+
+
 #  CLEAN DATA
 
+Here we create a map to convert weird domain category values to correct ones.
 
 ```{r}
 renaming_map <- c(
@@ -52,11 +91,9 @@ data_clean <- data |>
 
 ```
 
-```{r}
-data_clean |>
-  filter(violation_name == "region")
-```
 
+
+Ensure that violations aren't duplicated based off numebr of additional domain categories.
 
 ```{r}
 data_clean_deduped <- data_clean |>
@@ -70,8 +107,30 @@ data_clean_deduped <- data_clean |>
 
 ```
 
+## VERIFY PROBLEMS FIXXED
 
+```{r}
+data_clean_deduped |>
+  distinct(domain_category)
+```
 
+```{r}
+data_clean_deduped |> 
+  filter(web_URL == "https://www.nbcnews.com/" | web_URL == "https://www.nbcnews.com") |>
+  select(web_URL, domain) |>
+  slice(c(1, 22))
+```
+
+```{r}
+data_clean_deduped |>
+  filter(web_URL == "https://arstechnica.com/health/") |>
+  select(domain_category, web_URL, violation_name, violation_score) |>
+  head(2)
+```
+
+# AGGREGATE DATA
+
+Here we aggregated data per page for potentially useful metrics to include in individual summaries we will input into tableau and graph. (We didn't end up using the aggregated values calculated here.)
 
 ```{r}
 page_summary <- data_clean_deduped |>
@@ -106,7 +165,8 @@ domain_summary <- page_summary |>
 ```
 
 ```{r}
-domain_summary
+domain_summary |>
+  head(4)
 ```
 
 
@@ -122,7 +182,8 @@ domain_category_summary <- data_clean |>
 ```
 
 ```{r}
-domain_summary
+domain_category_summary |>
+  head(4)
 ```
 
 
@@ -168,11 +229,28 @@ violation_summary_grouped <- violation_summary |>
 ```
 
 ```{r}
-violation_summary
-violation_type_by_domain_category
-violation_category_by_domain_category
-violation_category_summary
-violation_summary_grouped
+violation_summary  |>
+  head(4)
+```
+
+```{r}
+violation_type_by_domain_category  |>
+  head(4)
+```
+
+```{r}
+violation_category_by_domain_category  |>
+  head(4)
+```
+
+```{r}
+violation_category_summary|>
+  head(4)
+```
+
+```{r}
+violation_summary_grouped  |>
+  head(4)
 ```
 
 
@@ -188,6 +266,6 @@ write.csv(violation_type_by_domain_category, "processed_data/violation_type_by_d
 write.csv(violation_category_by_domain_category, "processed_data/violation_category_by_domain.csv", row.names = FALSE)
 ```
 
-
+finished :D
 
 
