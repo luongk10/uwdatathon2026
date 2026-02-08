@@ -52,43 +52,30 @@ data_clean <- data |>
 
 ```
 
+```{r}
+data_clean |>
+  filter(web_URL == "https://arstechnica.com/health/")
+```
+
 
 ```{r}
-data_clean_unique <- data_clean |>
-  distinct(
-    web_URL_id,
-    web_URL,
-    violation_name,
-    violation_score,
-    violation_category,
-    violation_impact,
-    wcag_reference,
-    .keep_all = TRUE
-  )
+data_clean_deduped <- data_clean |>
+  distinct(web_URL,
+           violation_name,
+           violation_score,
+           violation_category,
+           violation_impact,
+           wcag_reference,
+           .keep_all = TRUE)
 
 ```
 
-```{r}
-webpage_grouped_data <- data_clean_unique %>%
-  group_by(web_URL_id, web_URL) %>% 
-  summarise(
-    violations = list(
-      tibble(
-        name = violation_name,
-        score = violation_score,
-        category = violation_category,
-        impact = violation_impact,
-        wcag_reference = wcag_reference
-      )
-    )
-  )
-```
 
-# DOMAIN-LEVEL SUMMARY
+
 
 ```{r}
-domain_summary <- data_clean_unique |>
-  group_by(domain) |>
+page_summary <- data_clean_deduped |>
+  group_by(web_URL, domain) |>
   summarise(
     n_violations = n(),
     avg_severity = mean(violation_score, na.rm = TRUE),
@@ -101,6 +88,33 @@ domain_summary <- data_clean_unique |>
 
 ```
 
+```{r}
+page_summary |>
+  filter(domain == "arstechnica.com") |>
+  summarise(sum(n_violations))
+```
+
+
+
+# DOMAIN-LEVEL SUMMARY
+
+```{r}
+domain_summary <- page_summary |>
+  group_by(domain) |>
+  summarise(
+    n_pages = n(),
+    total_violations = sum(n_violations),
+    avg_violations_per_page = mean(n_violations),
+    avg_severity = mean(avg_severity),
+    .groups = "drop"
+  )
+
+
+```
+
+```{r}
+domain_summary
+```
 
 
 ```{r}
@@ -163,5 +177,11 @@ write.csv(violation_category_summary, "processed_data/violation_category_summary
 write.csv(violation_type_by_domain_category, "processed_data/violation_type_by_domain.csv", row.names = FALSE)
 write.csv(violation_category_by_domain_category, "processed_data/violation_category_by_domain.csv", row.names = FALSE)
 ```
+
+```{r}
+domain_summary |>
+  head(10)
+```
+
 
 
