@@ -17,7 +17,7 @@ library(writexl)
 data <- read_delim("datasets/Access_to_Tech_Dataset.csv")
 ```
 
-# VERIFY DATA
+# PREVIEW DATA
 
 ```{r}
 data |>
@@ -28,22 +28,6 @@ data |>
 ```
 #  CLEAN DATA
 
-Based on the scrape status, we believe it is safe to assume there isn't any incomplete data to filter out.
-
-```{r}
-data |>
-  distinct(scrape_status)
-
-```
-
-Looking at the distinct domain categories, we see that there are inconsistentcies in data entries. For example there are entries for either Ecommerce and E-commerce which would mess up our data aggregation.
-
-```{r}
-data |>
-  distinct(domain_category)
-```
-
-Therefore we will set up a map so that we can rename the values to their correct name.
 
 ```{r}
 renaming_map <- c(
@@ -60,23 +44,12 @@ renaming_map <- c(
 
 data_clean <- data |>
   mutate(
-    domain_category = renaming_map[domain_category]
+    domain_category = renaming_map[domain_category],
+    domain = web_URL |>
+      str_replace("^https?://(www\\.)?", "") |>
+      str_replace("/.*$", "")
   )
 
-
-```
-
-Verify the cleaned data.
-
-```{r}
-data_clean |>
-  distinct(domain_category)
-```
-
-Later on through experimentation in tableau, we found that webpage violation data was duplicating itself if a webpage were assigned multiple domain categories. For answering questions regarding domain-category based distributions, this is fine but for individual webpage related questions this would inflate certain webpages' scores. Therefore we need to dedpulicate this. 
-```{r}
-data_clean |>
-  filter(web_URL == "https://www.pluralsight.com")
 ```
 
 
@@ -95,44 +68,6 @@ data_clean_unique <- data_clean |>
 
 ```
 
-Verify issue is solved
-
-```{r}
-data_clean_unique |>
-  filter(web_URL == "https://www.pluralsight.com")
-```
-
-
-# INVESTIGATE A SPECIFIC WEBPAGE
-Looking at one specific web url, we can see that there are multiple row for the same webpage, with different violations recorded for each data entry.
-
-```{r}
-data_clean |>
-  filter(web_URL_id == 700)
-  
-```
-
-# GROUPING DATA BY WEBPAGE
-Here we will group our data by web url for aggregation and calculating our metrics.
-
-```{r}
-grouped_data <- data_clean |>
-  group_by(web_URL_id, web_URL, domain_category) |>
-  summarize(
-    violations = list(
-      tibble(
-          name = violation_name,
-          score = violation_score,
-          category = violation_category,
-          impact = violation_impact,
-          wcag_reference = wcag_reference
-      )
-    )
-  )
-  
-```
-
-Seperate grouped data frame for individual webpages with deduped entries.
 ```{r}
 webpage_grouped_data <- data_clean_unique %>%
   group_by(web_URL_id, web_URL) %>% 
@@ -149,51 +84,34 @@ webpage_grouped_data <- data_clean_unique %>%
   )
 ```
 
-# GROUPED DATA FOR DOMAINS
-
-```{r}
-domain_grouped_data <- grouped_data %>%
-  mutate(
-    n_violations = map_int(violations, nrow),
-    avg_severity = map_dbl(violations, ~ mean(.x$score, na.rm = TRUE)),
-    max_severity = map_int(violations, ~ max(.x$score, na.rm = TRUE)),
-    min_severity = map_int(violations, ~ min(.x$score, na.rm = TRUE)),
-    n_distinct_violation_types = map_int(violations, ~ n_distinct(.x$name)),
-    n_distinct_violation_categories = map_int(violations, ~ n_distinct(.x$category))
-  )
-```
-
-```{r}
-data_summary |>
-  head(5)
-```
-# WEBPAGE-LEVEL SUMMARY
-
-```{r}
-webpage_summary <- webpage_grouped_data %>%
-  mutate(
-    n_violations = map_int(violations, nrow),
-    avg_severity = map_dbl(violations, ~ mean(.x$score, na.rm = TRUE)),
-    max_severity = map_int(violations, ~ max(.x$score, na.rm = TRUE)),
-    min_severity = map_int(violations, ~ min(.x$score, na.rm = TRUE)),
-    n_distinct_violation_types = map_int(violations, ~ n_distinct(.x$name)),
-    n_distinct_violation_categories = map_int(violations, ~ n_distinct(.x$category))
-  )
-```
-
-
 # DOMAIN-LEVEL SUMMARY
 
+```{r}
+domain_summary <- data_clean_unique |>
+  group_by(domain) |>
+  summarise(
+    n_violations = n(),
+    avg_severity = mean(violation_score, na.rm = TRUE),
+    max_severity = max(violation_score, na.rm = TRUE),
+    min_severity = min(violation_score, na.rm = TRUE),
+    n_distinct_violation_types = n_distinct(violation_name),
+    n_distinct_violation_categories = n_distinct(violation_category),
+    .groups = "drop"
+  )
+
+```
+
+
 
 ```{r}
-domain_summary <- data_summary |>
+domain_category_summary <- data_clean |>
   group_by(domain_category) |>
-  summarize(
-    n_pages = n(),
-    total_violations = sum(n_violations),
-    avg_violations_per_page = mean(n_violations),
-    avg_severity = mean(avg_severity)
+  summarise(
+    total_violations = n(),
+    avg_severity = mean(violation_score, na.rm = TRUE),
+    .groups = "drop"
   )
+
 ```
 
 ```{r}
@@ -208,18 +126,17 @@ violation_summary <- data_clean |>
   count(violation_name, sort = TRUE) |>
   rename(violations = n)
 
-violation_type_by_domain <- data_clean %>%
-  group_by(domain_category, violation_name) %>%
-  summarise(
-    violations = n(),
-    .groups = "drop")
+violation_type_by_domain_category <- data_clean |>
+  group_by(domain_category, violation_name) |>
+  summarise(violations = n(),
+            .groups = "drop")
 
-violation_category_by_domain <- data_clean %>%
+violation_category_by_domain_category <- data_clean |>
   filter(!is.na(violation_category)) |>
-  group_by(domain_category, violation_category) %>%
-  summarise(
-    violations = n(),
-    .groups = "drop")
+  group_by(domain_category, violation_category) |>
+  summarise(violations = n(),
+            .groups = "drop")
+
 
 violation_category_summary <- data_clean |>
   filter(!is.na(violation_category)) |>
@@ -230,29 +147,21 @@ violation_category_summary <- data_clean |>
 
 ```{r}
 violation_summary
-violation_type_by_domain
-violation_category_by_domain
+violation_type_by_domain_category
+violation_category_by_domain_category
 violation_category_summary
 ```
 
 
 # EXPORT EVERYTHING FOR TABLEAU
 
-
-tables with lists nested inside need them removed in order to be exported into .csv
 ```{r}
-webpage_summary_exportable <- webpage_summary |>
-  select(-violations)
-```
-
-
-```{r}
-write.csv(webpage_summary_exportable, "processed_data/webpage_summary.csv", row.names = FALSE)
 write.csv(domain_summary, "processed_data/domain_summary.csv", row.names = FALSE)
+write.csv(domain_category_summary, "processed_data/domain_category_summary.csv", row.names = FALSE)
 write.csv(violation_summary, "processed_data/violation_summary.csv", row.names = FALSE)
-write.csv(violation_type_by_domain, "processed_data/violation_type_by_domain.csv", row.names = FALSE)
-write.csv(violation_category_by_domain, "processed_data/violation_category_by_domain.csv", row.names = FALSE)
 write.csv(violation_category_summary, "processed_data/violation_category_summary.csv", row.names = FALSE)
+write.csv(violation_type_by_domain_category, "processed_data/violation_type_by_domain.csv", row.names = FALSE)
+write.csv(violation_category_by_domain_category, "processed_data/violation_category_by_domain.csv", row.names = FALSE)
 ```
 
 
