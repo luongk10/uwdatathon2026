@@ -34,7 +34,7 @@ export default function App() {
     const vizzes = [
       { ref: viz1Ref, url: 'https://public.tableau.com/views/UWDatathon2026/Sheet7' },
       { ref: viz2Ref, url: 'https://public.tableau.com/views/UWDatathon2026/Sheet2' },
-      { ref: viz3Ref, url: 'https://public.tableau.com/views/UWDatathon2026/Sheet4' },
+      { ref: viz3Ref, url: 'https://public.tableau.com/views/UWDatathon2026/Dashboard3' },
       { ref: viz4Ref, url: 'https://public.tableau.com/views/UWDatathon2026/Sheet5' },
       { ref: viz5Ref, url: 'https://public.tableau.com/views/UWDatathon2026/Dashboard2' },
       { ref: viz6Ref, url: 'https://public.tableau.com/views/UWDatathon2026/Sheet6' },
@@ -248,19 +248,12 @@ export default function App() {
           </h2>
           <ul className="space-y-4 text-red-800 text-lg list-disc pl-5">
             <li>
-              <strong>Automate, then humanize:</strong>{" "}
-              Automated tools catch 40% of errors; human testing
-              is required for the rest.
+              Syntax violations are the most common, especially in news-and-media-related websites.
             </li>
             <li>
-              <strong>Contrast matters:</strong> 86% of landing
-              pages have low-contrast text.
+              The most offending violation group is color contrast.
             </li>
-            <li>
-              <strong>Mobile is lagging:</strong> Accessibility
-              scores are consistently lower on mobile-optimized
-              views.
-            </li>
+            <p>Tip: ensure your website's color scheme has sufficient contrast. Alternatively, include a high-contrast color theme.</p>
           </ul>
         </section>
 
@@ -270,11 +263,14 @@ export default function App() {
             Conclusion
           </h2>
           <p>
-            The path to 100% digital accessibility is a journey,
-            not a destination. By integrating accessibility
-            checks into the CI/CD pipeline and prioritizing it
-            during the design phase, we can drastically reduce
-            the number of barriers for users with disabilities.
+            The AccessGuru dataset reveals that many websites have accessibility violations, even including websites that should support
+            accessible experiences in the first place (e.g. government-powered .gov, school-related .edu domains). These findings emphasize
+            that web accessibility is not only a challenge for design; it's an issue of equity. Failing to meet accessibility standards
+            prevent a large audience from having access to information.
+          </p>
+          <p>
+            Luckily, many common accessibility violations are easily preventable. Web developers taking accessibility into account can create
+            more inclusive online experiences for everyone.
           </p>
           {/*<div className="mt-12 p-8 border-2 border-slate-200 rounded-2xl text-center">
             <h3 className="text-xl font-bold mb-4">
@@ -292,7 +288,7 @@ export default function App() {
 
       <footer className="bg-slate-50 py-12 px-4 border-t border-slate-200">
         <div className="max-w-6xl mx-auto text-slate-500 text-sm">
-          <p>Team robertちゃんです～！</p>
+          <p>Team Robert</p>
           <div className="mt-4 flex gap-6">
             <a
               href="https://github.com/luongk10/uwdatathon2026"
@@ -304,7 +300,7 @@ export default function App() {
               href="https://b2find.eudat.eu/dataset/e0aa764f-959c-51a9-9f39-60ac02bbb1c7"
               className="underline hover:text-slate-900"
             >
-              Dataset from AccessGuru
+              About AccessGuru dataset
             </a>
           </div>
         </div>
