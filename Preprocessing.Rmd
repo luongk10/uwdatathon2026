@@ -73,6 +73,36 @@ data_clean |>
   distinct(domain_category)
 ```
 
+Later on through experimentation in tableau, we found that webpage violation data was duplicating itself if a webpage were assigned multiple domain categories. For answering questions regarding domain-category based distributions, this is fine but for individual webpage related questions this would inflate certain webpages' scores. Therefore we need to dedpulicate this. 
+```{r}
+data_clean |>
+  filter(web_URL == "https://www.pluralsight.com")
+```
+
+
+```{r}
+data_clean_unique <- data_clean |>
+  distinct(
+    web_URL_id,
+    web_URL,
+    violation_name,
+    violation_score,
+    violation_category,
+    violation_impact,
+    wcag_reference,
+    .keep_all = TRUE
+  )
+
+```
+
+Verify issue is solved
+
+```{r}
+data_clean_unique |>
+  filter(web_URL == "https://www.pluralsight.com")
+```
+
+
 # INVESTIGATE A SPECIFIC WEBPAGE
 Looking at one specific web url, we can see that there are multiple row for the same webpage, with different violations recorded for each data entry.
 
@@ -102,17 +132,34 @@ grouped_data <- data_clean |>
   
 ```
 
-# WEBPAGE LEVEL METRICS
+Seperate grouped data frame for individual webpages with deduped entries.
+```{r}
+webpage_grouped_data <- data_clean_unique %>%
+  group_by(web_URL_id, web_URL) %>% 
+  summarise(
+    violations = list(
+      tibble(
+        name = violation_name,
+        score = violation_score,
+        category = violation_category,
+        impact = violation_impact,
+        wcag_reference = wcag_reference
+      )
+    )
+  )
+```
+
+# GROUPED DATA FOR DOMAINS
 
 ```{r}
-data_summary <- grouped_data %>%
+domain_grouped_data <- grouped_data %>%
   mutate(
     n_violations = map_int(violations, nrow),
     avg_severity = map_dbl(violations, ~ mean(.x$score, na.rm = TRUE)),
     max_severity = map_int(violations, ~ max(.x$score, na.rm = TRUE)),
     min_severity = map_int(violations, ~ min(.x$score, na.rm = TRUE)),
-    n_violation_types = map_int(violations, ~ n_distinct(.x$name)),
-    n_violation_categories = map_int(violations, ~ n_distinct(.x$category))
+    n_distinct_violation_types = map_int(violations, ~ n_distinct(.x$name)),
+    n_distinct_violation_categories = map_int(violations, ~ n_distinct(.x$category))
   )
 ```
 
@@ -120,9 +167,22 @@ data_summary <- grouped_data %>%
 data_summary |>
   head(5)
 ```
+# WEBPAGE-LEVEL SUMMARY
+
+```{r}
+webpage_summary <- webpage_grouped_data %>%
+  mutate(
+    n_violations = map_int(violations, nrow),
+    avg_severity = map_dbl(violations, ~ mean(.x$score, na.rm = TRUE)),
+    max_severity = map_int(violations, ~ max(.x$score, na.rm = TRUE)),
+    min_severity = map_int(violations, ~ min(.x$score, na.rm = TRUE)),
+    n_distinct_violation_types = map_int(violations, ~ n_distinct(.x$name)),
+    n_distinct_violation_categories = map_int(violations, ~ n_distinct(.x$category))
+  )
+```
 
 
-# DOMAIN LEVEL METRICS
+# DOMAIN-LEVEL SUMMARY
 
 
 ```{r}
@@ -140,6 +200,7 @@ domain_summary <- data_summary |>
 domain_summary
 ```
 
+
 # VIOLATION-LEVEL SUMMARIES
 
 ```{r}
@@ -154,6 +215,7 @@ violation_type_by_domain <- data_clean %>%
     .groups = "drop")
 
 violation_category_by_domain <- data_clean %>%
+  filter(!is.na(violation_category)) |>
   group_by(domain_category, violation_category) %>%
   summarise(
     violations = n(),
@@ -177,23 +239,20 @@ violation_category_summary
 # EXPORT EVERYTHING FOR TABLEAU
 
 
-data_summary table has a list inside, so need to remove it so it's exportable as a csv
+tables with lists nested inside need them removed in order to be exported into .csv
 ```{r}
-data_summary_exportable <- data_summary |>
+webpage_summary_exportable <- webpage_summary |>
   select(-violations)
 ```
 
 
 ```{r}
-write.csv(data_clean, "processed_data/data_clean.csv", row.names = FALSE)
-write.csv(data_summary_exportable, "processed_data/data_summary.csv", row.names = FALSE)
+write.csv(webpage_summary_exportable, "processed_data/webpage_summary.csv", row.names = FALSE)
 write.csv(domain_summary, "processed_data/domain_summary.csv", row.names = FALSE)
 write.csv(violation_summary, "processed_data/violation_summary.csv", row.names = FALSE)
 write.csv(violation_type_by_domain, "processed_data/violation_type_by_domain.csv", row.names = FALSE)
 write.csv(violation_category_by_domain, "processed_data/violation_category_by_domain.csv", row.names = FALSE)
 write.csv(violation_category_summary, "processed_data/violation_category_summary.csv", row.names = FALSE)
 ```
-
-
 
 
