@@ -8,6 +8,7 @@ output: pdf_document
 ```{r}
 library(tidyverse)
 library(stringr)
+library(writexl)
 ```
 
 # LOAD DATA
@@ -25,7 +26,7 @@ data |>
 data |>
   sample_n(10)
 ```
-# CHECK NEED TO CLEAN DATA
+#  CLEAN DATA
 
 Based on the scrape status, we believe it is safe to assume there isn't any incomplete data to filter out.
 
@@ -110,7 +111,6 @@ data_summary <- grouped_data %>%
     avg_severity = map_dbl(violations, ~ mean(.x$score, na.rm = TRUE)),
     max_severity = map_int(violations, ~ max(.x$score, na.rm = TRUE)),
     min_severity = map_int(violations, ~ min(.x$score, na.rm = TRUE)),
-    avg_impact = map_dbl(violations, ~ min(.x$impact, na.rm = TRUE)),
     n_violation_types = map_int(violations, ~ n_distinct(.x$name)),
     n_violation_categories = map_int(violations, ~ n_distinct(.x$category))
   )
@@ -140,9 +140,60 @@ domain_summary <- data_summary |>
 domain_summary
 ```
 
+# VIOLATION-LEVEL SUMMARIES
+
 ```{r}
-barplot(table(data$violation_name))
+violation_summary <- data_clean |>
+  count(violation_name, sort = TRUE) |>
+  rename(violations = n)
+
+violation_type_by_domain <- data_clean %>%
+  group_by(domain_category, violation_name) %>%
+  summarise(
+    violations = n(),
+    .groups = "drop")
+
+violation_category_by_domain <- data_clean %>%
+  group_by(domain_category, violation_category) %>%
+  summarise(
+    violations = n(),
+    .groups = "drop")
+
+violation_category_summary <- data_clean |>
+  filter(!is.na(violation_category)) |>
+  count(violation_category, sort = TRUE) |>
+  rename(violations = n)
+
 ```
+
+```{r}
+violation_summary
+violation_type_by_domain
+violation_category_by_domain
+violation_category_summary
+```
+
+
+# EXPORT EVERYTHING FOR TABLEAU
+
+
+data_summary table has a list inside, so need to remove it so it's exportable as a csv
+```{r}
+data_summary_exportable <- data_summary |>
+  select(-violations)
+```
+
+
+```{r}
+write.csv(data_clean, "processed_data/data_clean.csv", row.names = FALSE)
+write.csv(data_summary_exportable, "processed_data/data_summary.csv", row.names = FALSE)
+write.csv(domain_summary, "processed_data/domain_summary.csv", row.names = FALSE)
+write.csv(violation_summary, "processed_data/violation_summary.csv", row.names = FALSE)
+write.csv(violation_type_by_domain, "processed_data/violation_type_by_domain.csv", row.names = FALSE)
+write.csv(violation_category_by_domain, "processed_data/violation_category_by_domain.csv", row.names = FALSE)
+write.csv(violation_category_summary, "processed_data/violation_category_summary.csv", row.names = FALSE)
+```
+
 
 
 

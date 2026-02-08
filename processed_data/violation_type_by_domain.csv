@@ -1,0 +1,356 @@
+"domain_category","violation_name","violations"
+"E-commerce","aria-allowed-attr",12
+"E-commerce","aria-allowed-role",5
+"E-commerce","aria-command-name",2
+"E-commerce","aria-dialog-name",2
+"E-commerce","aria-hidden-focus",5
+"E-commerce","aria-progressbar-name",3
+"E-commerce","aria-required-attr",1
+"E-commerce","aria-required-children",3
+"E-commerce","aria-required-parent",3
+"E-commerce","aria-roles",4
+"E-commerce","avoid-inline-spacing",1
+"E-commerce","button-name",6
+"E-commerce","color-contrast",18
+"E-commerce","color-contrast-enhanced",41
+"E-commerce","document-title",3
+"E-commerce","duplicate-id",24
+"E-commerce","duplicate-id-active",4
+"E-commerce","duplicate-id-aria",4
+"E-commerce","empty-heading",3
+"E-commerce","frame-title",3
+"E-commerce","heading-order",9
+"E-commerce","html-has-lang",11
+"E-commerce","html-lang-valid",1
+"E-commerce","image-alt",8
+"E-commerce","image-redundant-alt",3
+"E-commerce","label",1
+"E-commerce","label-title-only",1
+"E-commerce","landmark-banner-is-top-level",1
+"E-commerce","landmark-complementary-is-top-level",3
+"E-commerce","landmark-contentinfo-is-top-level",1
+"E-commerce","landmark-no-duplicate-banner",1
+"E-commerce","landmark-no-duplicate-contentinfo",2
+"E-commerce","landmark-one-main",24
+"E-commerce","landmark-unique",16
+"E-commerce","link-name",21
+"E-commerce","list",9
+"E-commerce","listitem",3
+"E-commerce","meta-viewport",6
+"E-commerce","meta-viewport-large",4
+"E-commerce","nested-interactive",5
+"E-commerce","page-has-heading-one",16
+"E-commerce","presentation-role-conflict",2
+"E-commerce","region",38
+"E-commerce","role-img-alt",2
+"E-commerce","scrollable-region-focusable",3
+"E-commerce","select-name",1
+"E-commerce","tabindex",6
+"Educational Platforms","ambiguous-heading",2
+"Educational Platforms","aria-allowed-attr",12
+"Educational Platforms","aria-allowed-role",4
+"Educational Platforms","aria-dialog-name",3
+"Educational Platforms","aria-hidden-focus",5
+"Educational Platforms","aria-input-field-name",1
+"Educational Platforms","aria-required-attr",1
+"Educational Platforms","aria-required-children",5
+"Educational Platforms","aria-required-parent",4
+"Educational Platforms","aria-roles",4
+"Educational Platforms","aria-toggle-field-name",1
+"Educational Platforms","aria-valid-attr",1
+"Educational Platforms","aria-valid-attr-value",5
+"Educational Platforms","button-label-mismatch",1
+"Educational Platforms","button-name",10
+"Educational Platforms","color-contrast",56
+"Educational Platforms","color-contrast-enhanced",84
+"Educational Platforms","document-title",2
+"Educational Platforms","duplicate-id",39
+"Educational Platforms","duplicate-id-active",4
+"Educational Platforms","duplicate-id-aria",3
+"Educational Platforms","empty-heading",8
+"Educational Platforms","form-label-mismatch",3
+"Educational Platforms","frame-title",6
+"Educational Platforms","frame-title-unique",1
+"Educational Platforms","heading-order",37
+"Educational Platforms","html-has-lang",8
+"Educational Platforms","image-alt",20
+"Educational Platforms","image-alt-not-descriptive",2
+"Educational Platforms","image-redundant-alt",6
+"Educational Platforms","input-button-name",1
+"Educational Platforms","label",2
+"Educational Platforms","landmark-banner-is-top-level",1
+"Educational Platforms","landmark-complementary-is-top-level",1
+"Educational Platforms","landmark-contentinfo-is-top-level",4
+"Educational Platforms","landmark-main-is-top-level",2
+"Educational Platforms","landmark-no-duplicate-banner",3
+"Educational Platforms","landmark-no-duplicate-contentinfo",10
+"Educational Platforms","landmark-no-duplicate-main",1
+"Educational Platforms","landmark-one-main",32
+"Educational Platforms","landmark-unique",19
+"Educational Platforms","lang-mismatch",7
+"Educational Platforms","link-name",32
+"Educational Platforms","link-text-mismatch",6
+"Educational Platforms","list",6
+"Educational Platforms","listitem",5
+"Educational Platforms","meta-refresh",5
+"Educational Platforms","meta-viewport",13
+"Educational Platforms","missing-lang-tag",2
+"Educational Platforms","nested-interactive",3
+"Educational Platforms","page-has-heading-one",15
+"Educational Platforms","page-title-not-descriptive",3
+"Educational Platforms","presentation-role-conflict",1
+"Educational Platforms","region",55
+"Educational Platforms","scrollable-region-focusable",1
+"Educational Platforms","select-name",1
+"Educational Platforms","skip-link",1
+"Educational Platforms","svg-img-alt",3
+"Educational Platforms","tabindex",2
+"Government and Public Services","accesskeys",2
+"Government and Public Services","aria-allowed-attr",4
+"Government and Public Services","aria-allowed-role",10
+"Government and Public Services","aria-command-name",2
+"Government and Public Services","aria-dialog-name",1
+"Government and Public Services","aria-hidden-focus",2
+"Government and Public Services","aria-input-field-name",1
+"Government and Public Services","aria-required-attr",1
+"Government and Public Services","aria-required-children",1
+"Government and Public Services","aria-required-parent",1
+"Government and Public Services","aria-valid-attr-value",2
+"Government and Public Services","button-name",3
+"Government and Public Services","color-contrast",10
+"Government and Public Services","color-contrast-enhanced",65
+"Government and Public Services","document-title",1
+"Government and Public Services","duplicate-id",21
+"Government and Public Services","duplicate-id-active",8
+"Government and Public Services","duplicate-id-aria",5
+"Government and Public Services","empty-heading",2
+"Government and Public Services","frame-title",1
+"Government and Public Services","heading-order",16
+"Government and Public Services","html-has-lang",7
+"Government and Public Services","image-alt",10
+"Government and Public Services","image-redundant-alt",3
+"Government and Public Services","label",2
+"Government and Public Services","label-title-only",3
+"Government and Public Services","landmark-banner-is-top-level",14
+"Government and Public Services","landmark-complementary-is-top-level",1
+"Government and Public Services","landmark-contentinfo-is-top-level",2
+"Government and Public Services","landmark-main-is-top-level",4
+"Government and Public Services","landmark-no-duplicate-banner",19
+"Government and Public Services","landmark-no-duplicate-contentinfo",3
+"Government and Public Services","landmark-no-duplicate-main",4
+"Government and Public Services","landmark-one-main",11
+"Government and Public Services","landmark-unique",31
+"Government and Public Services","link-name",13
+"Government and Public Services","list",4
+"Government and Public Services","listitem",3
+"Government and Public Services","meta-viewport",1
+"Government and Public Services","nested-interactive",1
+"Government and Public Services","page-has-heading-one",24
+"Government and Public Services","presentation-role-conflict",2
+"Government and Public Services","region",48
+"Government and Public Services","role-img-alt",2
+"Government and Public Services","skip-link",4
+"Government and Public Services","tabindex",5
+"Health and Wellness","aria-allowed-attr",3
+"Health and Wellness","aria-allowed-role",1
+"Health and Wellness","aria-input-field-name",1
+"Health and Wellness","aria-required-children",1
+"Health and Wellness","aria-valid-attr-value",1
+"Health and Wellness","button-name",4
+"Health and Wellness","color-contrast",12
+"Health and Wellness","color-contrast-enhanced",35
+"Health and Wellness","duplicate-id",4
+"Health and Wellness","duplicate-id-active",1
+"Health and Wellness","duplicate-id-aria",3
+"Health and Wellness","empty-heading",1
+"Health and Wellness","heading-order",14
+"Health and Wellness","image-alt",4
+"Health and Wellness","image-redundant-alt",5
+"Health and Wellness","label",1
+"Health and Wellness","label-title-only",1
+"Health and Wellness","landmark-contentinfo-is-top-level",2
+"Health and Wellness","landmark-no-duplicate-contentinfo",2
+"Health and Wellness","landmark-one-main",4
+"Health and Wellness","landmark-unique",13
+"Health and Wellness","link-name",10
+"Health and Wellness","list",3
+"Health and Wellness","listitem",1
+"Health and Wellness","meta-viewport",1
+"Health and Wellness","nested-interactive",2
+"Health and Wellness","page-has-heading-one",11
+"Health and Wellness","presentation-role-conflict",1
+"Health and Wellness","region",18
+"Health and Wellness","scrollable-region-focusable",5
+"News and Media","aria-allowed-attr",4
+"News and Media","aria-allowed-role",10
+"News and Media","aria-command-name",1
+"News and Media","aria-dialog-name",3
+"News and Media","aria-hidden-focus",7
+"News and Media","aria-required-children",4
+"News and Media","aria-required-parent",2
+"News and Media","aria-roledescription",1
+"News and Media","aria-roles",1
+"News and Media","aria-valid-attr",1
+"News and Media","aria-valid-attr-value",11
+"News and Media","button-name",27
+"News and Media","color-contrast",71
+"News and Media","color-contrast-enhanced",114
+"News and Media","document-title",6
+"News and Media","duplicate-id",72
+"News and Media","duplicate-id-active",25
+"News and Media","duplicate-id-aria",31
+"News and Media","empty-heading",32
+"News and Media","frame-title",18
+"News and Media","frame-title-unique",5
+"News and Media","heading-order",45
+"News and Media","html-has-lang",8
+"News and Media","image-alt",28
+"News and Media","image-redundant-alt",12
+"News and Media","label-title-only",1
+"News and Media","landmark-banner-is-top-level",1
+"News and Media","landmark-complementary-is-top-level",6
+"News and Media","landmark-contentinfo-is-top-level",2
+"News and Media","landmark-main-is-top-level",1
+"News and Media","landmark-no-duplicate-banner",4
+"News and Media","landmark-no-duplicate-contentinfo",2
+"News and Media","landmark-no-duplicate-main",2
+"News and Media","landmark-one-main",38
+"News and Media","landmark-unique",61
+"News and Media","link-name",63
+"News and Media","list",5
+"News and Media","listitem",5
+"News and Media","meta-refresh",2
+"News and Media","meta-viewport",7
+"News and Media","meta-viewport-large",4
+"News and Media","nested-interactive",7
+"News and Media","page-has-heading-one",42
+"News and Media","presentation-role-conflict",2
+"News and Media","region",104
+"News and Media","scrollable-region-focusable",30
+"News and Media","select-name",1
+"News and Media","skip-link",4
+"News and Media","svg-img-alt",3
+"News and Media","tabindex",4
+"Streaming Platforms","aria-allowed-attr",9
+"Streaming Platforms","aria-allowed-role",9
+"Streaming Platforms","aria-command-name",1
+"Streaming Platforms","aria-dialog-name",1
+"Streaming Platforms","aria-hidden-focus",6
+"Streaming Platforms","aria-required-attr",1
+"Streaming Platforms","aria-required-children",4
+"Streaming Platforms","aria-required-parent",2
+"Streaming Platforms","aria-roles",1
+"Streaming Platforms","aria-valid-attr-value",4
+"Streaming Platforms","autocomplete-valid",3
+"Streaming Platforms","button-name",9
+"Streaming Platforms","color-contrast",35
+"Streaming Platforms","color-contrast-enhanced",61
+"Streaming Platforms","document-title",4
+"Streaming Platforms","duplicate-id",28
+"Streaming Platforms","duplicate-id-active",5
+"Streaming Platforms","duplicate-id-aria",5
+"Streaming Platforms","empty-heading",11
+"Streaming Platforms","frame-title",2
+"Streaming Platforms","heading-order",18
+"Streaming Platforms","html-has-lang",7
+"Streaming Platforms","image-alt",19
+"Streaming Platforms","image-redundant-alt",4
+"Streaming Platforms","label",2
+"Streaming Platforms","label-title-only",1
+"Streaming Platforms","landmark-complementary-is-top-level",1
+"Streaming Platforms","landmark-contentinfo-is-top-level",6
+"Streaming Platforms","landmark-no-duplicate-banner",3
+"Streaming Platforms","landmark-no-duplicate-contentinfo",6
+"Streaming Platforms","landmark-one-main",33
+"Streaming Platforms","landmark-unique",20
+"Streaming Platforms","link-name",23
+"Streaming Platforms","list",4
+"Streaming Platforms","listitem",2
+"Streaming Platforms","meta-refresh",3
+"Streaming Platforms","meta-viewport",15
+"Streaming Platforms","meta-viewport-large",1
+"Streaming Platforms","nested-interactive",3
+"Streaming Platforms","page-has-heading-one",34
+"Streaming Platforms","presentation-role-conflict",1
+"Streaming Platforms","region",51
+"Streaming Platforms","scrollable-region-focusable",1
+"Streaming Platforms","select-name",1
+"Streaming Platforms","svg-img-alt",1
+"Streaming Platforms","tabindex",1
+"Streaming Platforms","valid-lang",1
+"Technology Science and Research","area-alt",1
+"Technology Science and Research","aria-allowed-attr",8
+"Technology Science and Research","aria-allowed-role",6
+"Technology Science and Research","aria-braille-equivalent",1
+"Technology Science and Research","aria-command-name",1
+"Technology Science and Research","aria-conditional-attr",1
+"Technology Science and Research","aria-deprecated-role",1
+"Technology Science and Research","aria-dialog-name",1
+"Technology Science and Research","aria-hidden-body",1
+"Technology Science and Research","aria-hidden-focus",5
+"Technology Science and Research","aria-input-field-name",1
+"Technology Science and Research","aria-meter-name",1
+"Technology Science and Research","aria-prohibited-attr",1
+"Technology Science and Research","aria-required-attr",2
+"Technology Science and Research","aria-required-children",3
+"Technology Science and Research","aria-required-parent",3
+"Technology Science and Research","aria-roles",4
+"Technology Science and Research","aria-text",1
+"Technology Science and Research","aria-tooltip-name",1
+"Technology Science and Research","aria-treeitem-name",1
+"Technology Science and Research","aria-valid-attr-value",8
+"Technology Science and Research","button-label-mismatch",4
+"Technology Science and Research","button-name",12
+"Technology Science and Research","bypass",1
+"Technology Science and Research","color-contrast",43
+"Technology Science and Research","color-contrast-enhanced",102
+"Technology Science and Research","document-title",3
+"Technology Science and Research","duplicate-id",42
+"Technology Science and Research","duplicate-id-active",12
+"Technology Science and Research","duplicate-id-aria",14
+"Technology Science and Research","empty-heading",9
+"Technology Science and Research","empty-table-header",1
+"Technology Science and Research","form-field-multiple-labels",1
+"Technology Science and Research","frame-focusable-content",1
+"Technology Science and Research","frame-title",11
+"Technology Science and Research","frame-title-unique",1
+"Technology Science and Research","heading-order",25
+"Technology Science and Research","html-has-lang",7
+"Technology Science and Research","html-xml-lang-mismatch",1
+"Technology Science and Research","image-alt",26
+"Technology Science and Research","image-alt-not-descriptive",3
+"Technology Science and Research","image-redundant-alt",3
+"Technology Science and Research","input-button-name",1
+"Technology Science and Research","input-image-alt",1
+"Technology Science and Research","label",8
+"Technology Science and Research","label-title-only",4
+"Technology Science and Research","landmark-banner-is-top-level",1
+"Technology Science and Research","landmark-complementary-is-top-level",2
+"Technology Science and Research","landmark-contentinfo-is-top-level",4
+"Technology Science and Research","landmark-main-is-top-level",2
+"Technology Science and Research","landmark-no-duplicate-contentinfo",4
+"Technology Science and Research","landmark-no-duplicate-main",1
+"Technology Science and Research","landmark-one-main",36
+"Technology Science and Research","landmark-unique",20
+"Technology Science and Research","link-in-text-block",1
+"Technology Science and Research","link-name",38
+"Technology Science and Research","list",9
+"Technology Science and Research","listitem",3
+"Technology Science and Research","meta-refresh",7
+"Technology Science and Research","meta-viewport",10
+"Technology Science and Research","meta-viewport-large",1
+"Technology Science and Research","nested-interactive",3
+"Technology Science and Research","no-autoplay-audio",1
+"Technology Science and Research","object-alt",1
+"Technology Science and Research","page-has-heading-one",35
+"Technology Science and Research","presentation-role-conflict",2
+"Technology Science and Research","region",68
+"Technology Science and Research","scrollable-region-focusable",9
+"Technology Science and Research","select-name",2
+"Technology Science and Research","summary-name",1
+"Technology Science and Research","svg-img-alt",2
+"Technology Science and Research","tabindex",1
+"Technology Science and Research","target-size",1
+"Technology Science and Research","td-headers-attr",1
+"Technology Science and Research","th-has-data-cells",1
+"Technology Science and Research","video-caption",1
